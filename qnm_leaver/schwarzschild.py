@@ -95,6 +95,7 @@ def matrix(w, l, s, N):
     """The determinant of the matrix M, det(M_N(w)), vanishes in the limit 
     where N goes to infinity at the QNM frequencies"""
     return mp.det(matrix(mp.mpc(w), l, s, N))
+  
   def qnms(l, s, n_overtone, guess, N=80, dps=50):
     """Gives a QNM frequency at a certain value of omega. 
     l is an integer and it's the angular momentum (>= s). 
@@ -106,11 +107,12 @@ def matrix(w, l, s, N):
     dsp is from mpmath for decimal place precision. 
     This function returns the converged complex frequency omega."""
     mp.mp.dps = dps
+    
     def f(w):
       return hill_det(w, l, s, N)
     return mp.findroot(f, mp.mpc(guess))
 
-    def converged_qnm(l, s, n_overtone, guess, N_list=(40, 60, 80, 100, 130),
+ def converged_qnm(l, s, n_overtone, guess, N_list=(40, 60, 80, 100, 130),
                      dps=50):
      """Same as qnms but it uses increases truncation number N. Each result
     is used as the next initial value for omega and it returns the sequence
