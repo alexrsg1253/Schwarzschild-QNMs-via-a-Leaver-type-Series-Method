@@ -19,7 +19,7 @@ in only large errors. The solver already has high accuracy and precision."""
 
 import mpmath as mp
 
-""" (l, s, n, guess, expected_omega) """
+""" (l, s, n_overtone, guess, expected_omega) """
 known_vals = [
  (0,0,0, mp.mpc(0.22, -0.21), mp.mpc(0.2210, -0.2098)),
  (1,0,0, mp.mpc(0.59, -0.20), mp.mpc(0.5858, -0.1954)),
@@ -29,11 +29,11 @@ known_vals = [
 
 def test():
   mp.mp.dps = 40
-  for l, s, n, guess, expected_omega in known_vals:
+  for l, s, n_overtone, guess, expected_omega in known_vals:
     omega = qnms(l, s, n_overtone, guess, N=80)
     difference = abs(omega-expected_omega)
-    print(f"l={l}, s={s}, n={n}: got {omega}, expected {expected_omega}, |difference|={difference}")
-    assert difference < mp.mpf("1e-3"), f"QNM mismatch for l={l}, s={s}, n={n}"
+    print(f"l={l}, s={s}, n={n_overtone}: got {omega}, expected {expected_omega}, |difference|={difference}")
+    assert difference < mp.mpf("1e-3"), f"QNM mismatch for l={l}, s={s}, n={n_overtone}"
 if __name__ == "__main__":
    test()
    print("All known value tests are correct.")
