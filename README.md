@@ -4,4 +4,15 @@ Here I will use a Frobenius-series (Leaver-type) solver for Schwarzschild black 
 - `QNM_Leaver/schwarzschild.py` : The solver. In this script, the Frobenius recursion relation is derived for the Regge-Wheeler equation with spin s=0,1,2 and angular momentum number l. A truncated, row-normalized matrix M is constructed and the QNM frequencies are found from the roots of its determinant. Specifically, a Hill determinant method was used, similar to Leaver's continued-fraction method.
 - `tests/test_known_values.py` : Regression tests againts published Schwarzschild QNM values for scalar and gravitational perturbations with the fundamental mode and the first overtone considered. 
 - `example_computation.py` : An example that shows how the solver works and how to check for convergence as the truncation size N increases. 
+## Starting Point
+```bash
+pip install -r Requirements.txt
+PYTHONPATH=. python3 example_computation.py
+PYTHONPATH=. python3 tests/test_known_values.py
 
+The expected output for the fundamental gravitational mode (for l=2 and n=0) is
+
+```
+M*omega = 0.373672 - 0.088962i
+
+which matches with published values (see Berti, Cardoso and Starinets, Class. Quantum Grav. 26.163001 (2009), arXiv: 0905.2975) up to 5/6 significant figures. 
