@@ -91,12 +91,12 @@ def matrix(w, l, s, N):
         M[n, index] += coeff
   return M
 
-  def hill_det(w, l, s, N):
+def hill_det(w, l, s, N):
     """The determinant of the matrix M, det(M_N(w)), vanishes in the limit 
     where N goes to infinity at the QNM frequencies"""
     return mp.det(matrix(mp.mpc(w), l, s, N))
   
-  def qnms(l, s, n_overtone, guess, N=80, dps=50):
+def qnms(l, s, n_overtone, guess, N=80, dps=50):
     """Gives a QNM frequency at a certain value of omega. 
     l is an integer and it's the angular momentum (>= s). 
     s is an integer, spin of the perturbing field (0 scalar field, 1 EM field, 
@@ -112,7 +112,7 @@ def matrix(w, l, s, N):
       return hill_det(w, l, s, N)
     return mp.findroot(f, mp.mpc(guess))
 
- def converged_qnm(l, s, n_overtone, guess, N_list=(40, 60, 80, 100, 130),
+def converged_qnm(l, s, n_overtone, guess, N_list=(40, 60, 80, 100, 130),
                      dps=50):
      """Same as qnms but it uses increases truncation number N. Each result
     is used as the next initial value for omega and it returns the sequence
