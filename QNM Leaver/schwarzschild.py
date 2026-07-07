@@ -95,28 +95,28 @@ def matrix(w, l, s, N):
     """The determinant of the matrix M, det(M_N(w)), vanishes in the limit 
     where N goes to infinity at the QNM frequencies"""
     return mp.det(matrix(mp.mpc(w), l, s, N))
-  def qnms(l, s, n_overtone, omega, N=80, dps=50):
+  def qnms(l, s, n_overtone, guess, N=80, dps=50):
     """Gives a QNM frequency at a certain value of omega. 
     l is an integer and it's the angular momentum (>= s). 
     s is an integer, spin of the perturbing field (0 scalar field, 1 EM field, 
     2 gravitational field). 
     n_overtone is an integer, the overtone number (n=0 is fundamental overtone).
-    omega is for an estimated complex value of omega. 
+    guess is for an estimated complex value of omega. 
     N is truncation size of Hill determinant. 
     dsp is from mpmath for decimal place precision. 
     This function returns the converged complex frequency omega."""
     mp.mp.dps = dps
     def f(w):
       return hill_det(w, l, s, N)
-    return mp.findroot(f, mp.mpc(omega))
+    return mp.findroot(f, mp.mpc(guess))
 
-    def converged_qnm(l, s, n_overtone, omega, N_list=(40, 60, 80, 100, 130),
+    def converged_qnm(l, s, n_overtone, guess, N_list=(40, 60, 80, 100, 130),
                      dps=50):
      """Same as qnms but it uses increases truncation number N. Each result
     is used as the next initial value for omega and it returns the sequence
     of estimates so that the convergence can be directly checked."""
      mp.mp.dps = dps
-     root = mp.mpc(omega)
+     root = mp.mpc(guess)
      empty = []
      for N in N_list:
        def f(w, N=N):
